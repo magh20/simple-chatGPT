@@ -1,14 +1,26 @@
 "use client"
 import Link from 'next/link'
 import './globals.css'
-import { CSSProperties, useState } from 'react'
-import { text } from 'stream/consumers';
+import { useEffect, useState } from 'react'
+import { ContextProvider } from '../contextApi/context';
+import StoreQuestions from '../components/storeQuestions';
+
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
 
+  useEffect(()=>{
+    if(window.location.pathname == "/instructor"){
+      setShow2(!show);
+    }else{
+      setShow2(show);
+    }
+      
+  },[show])
+
   return (
+    <ContextProvider>
     <html lang="fa">
       <body className='flex flex-row-reverse justify-start m-6'>
         <aside className='w-[335px] h-[397px] rounded flex flex-col items-center border border-gray-300'>
@@ -49,8 +61,8 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
             }
           </article>
           {/* my questions */}
-          <article>
-
+          <article className='w-full h-auto'>
+            {/* <StoreQuestions /> */}
           </article>
         </aside>
         <main className='mr-6 w-[690px] h-[700px] border border-gray-300 rounded'>
@@ -66,13 +78,13 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
             </article>
 
             <article className='flex flex-row-reverse justify-between items-center w-full rounded shadow-md'>
-              <Link href={'/'} className='w-[50%] flex justify-center font-bold text-lg pb-4' dir='rtl' onClick={()=> {setShow2(!show2)}}
-              style={{
-                color: show2 ? "rgba(0, 153, 204, 1)" : "rgba(74, 85, 104, 1)",
-              }}>سوال از ربات QGPT</Link>
-              <Link href={'/instructor'} className='w-[50%] flex justify-center text-unselect font-bold text-lg pb-4' dir='rtl' onClick={()=> {setShow2(!show2)}}
+              <Link href={'/'} className='w-[50%] flex justify-center font-bold text-lg pb-4' dir='rtl' onClick={()=> {if(window.location.pathname == "/instructor")setShow2(!show2)}}
               style={{
                 color: !show2 ? "rgba(0, 153, 204, 1)" : "rgba(74, 85, 104, 1)",
+              }}>سوال از ربات QGPT</Link>
+              <Link href={'/instructor'} className='w-[50%] flex justify-center text-unselect font-bold text-lg pb-4' dir='rtl' onClick={()=> {if(window.location.pathname == "/")setShow2(!show2)}}
+              style={{
+                color: show2 ? "rgba(0, 153, 204, 1)" : "rgba(74, 85, 104, 1)",
               }}>سوال از مربی های دوره</Link>
             </article>
           </section>
@@ -83,5 +95,6 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
         </main>
       </body>
     </html>
+    </ContextProvider>
   )
 }
