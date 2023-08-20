@@ -3,7 +3,7 @@ import Link from 'next/link'
 import './globals.css'
 import { useEffect, useState } from 'react'
 import { ContextProvider } from '../contextApi/context';
-import StoreQuestions from '../components/storeQuestions';
+import StoreQuestions from '../components/storeQuestions/storeQuestions';
 
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
@@ -23,8 +23,8 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
     <ContextProvider>
     <html lang="fa">
       <body className='flex flex-row-reverse justify-start m-6'>
-        <aside className='w-[335px] h-[397px] rounded flex flex-col items-center border border-gray-300'>
-          <header className='h-[45px] w-full bg-header font-bold text-sm flex justify-end items-center pr-4 rounded'>سوالات من</header>
+        <aside className='w-[335px] rounded flex flex-col items-center'>
+          <header className='h-[45px] w-full bg-header font-bold text-sm flex justify-end items-center pr-4 rounded-t'>سوالات من</header>
           {/* filters */}
           <article className='flex flex-col items-center w-full h-auto border-gray-300 border'>
             <header className='flex flex-row-reverse items-center w-full h-[40px] justify-between py-[8px] px-[12px]' onClick={()=>{setShow(!show)}}>
@@ -61,11 +61,11 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
             }
           </article>
           {/* my questions */}
-          <article className='w-full h-auto'>
-            {/* <StoreQuestions /> */}
+          <article className='w-full h-auto border border-gray-300 rounded-b'>
+            <StoreQuestions />
           </article>
         </aside>
-        <main className='mr-6 w-[690px] h-[700px] border border-gray-300 rounded'>
+        <main className='mr-6 w-[690px] border border-gray-300 rounded'>
           {/* header & choose who answers */}
           <section className='w-full'>
             <header className='bg-header w-full text-sm flex justify-end items-center h-[45px] font-bold pr-4 rounded'>درخواست پشتیبانی</header>

@@ -1,15 +1,18 @@
 "use client"
-import { useCont } from "../contextApi/context";
+import { useCont } from "../../contextApi/context";
+import { PaginatedItems } from "./pagination";
+import { useState } from "react";
 
 
 const StoreQuestions = () => {
     const {question} = useCont();
+    const [currentItems, setCurrentItems] =useState(question);
 
     return(
-        <div className="w-full h-[80px]">
-            {question.map((item: any, index: any)=>(
+        <div className="w-full">
+            {currentItems.map((item: any, index: any)=>(
                 <div key={index} className="w-full flex items-end justify-center flex-col">
-                    <div className="w-full flex-row-reverse h-auto justify-between flex">
+                    <div className="w-full flex-row-reverse h-auto justify-between flex mt-4">
                         <div className="flex flex-row-reverse w-[65%] items-center justify-start">
                             <input type="radio" className="mx-2"/>
                             <p>{item.title}</p>
@@ -28,6 +31,9 @@ const StoreQuestions = () => {
                     </div>
                 </div>
             ))}
+            <div className="flex justify-center items-center">
+                <PaginatedItems itemsPerPage={3} setCurrentItems={setCurrentItems} />
+            </div>
 
         </div>
     );

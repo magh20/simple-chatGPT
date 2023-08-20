@@ -1,18 +1,22 @@
 "use client"
 import { useForm } from "react-hook-form";
 import { useCont } from "../../contextApi/context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from 'next/image';
 import img1 from "../../../public/assets/images/picture_photo_image_icon_131252.png"
+import Link from "next/link";
 
 const Instructor = () => {
     const {handleSubmit, register, formState: {errors}} = useForm();
     const {question, setQuestion} = useCont();
 
     const submitHandle = (data : any) =>{
-        setQuestion([...question, {id: Date.now(), title: data.input, problem: data.select}]);
-        localStorage.setItem("questions", JSON.stringify({id: Date.now(), title: data.input, problem: data.select}));
+        setQuestion([...question, {id: Date.now(), title: data.input, problem: data.select, quest: data.textarea}]);
     }
+
+    useEffect(() => {
+        localStorage.setItem("questions", JSON.stringify(question));
+      }, [question]);
 
     return(
         <div className="w-full h-auto" >
@@ -24,7 +28,7 @@ const Instructor = () => {
                 <select dir="rtl" className="text-gray-400 w-[327px] border border-gray-300 rounded h-[40px] text-sm font-medium" {...register("select",
                     {required: { value: true, message: "یک گزینه را انتخاب کنید" },}
                 )}>
-                    <option value="مسئله" hidden>مسئله *</option>
+                    <option value="" hidden>مسئله *</option>
                     <option value="بمب بازی">بمب بازی</option>
                     <option value="مقدمه">مقدمه</option>
                     <option value="بتا تایپ">بتا تایپ</option>
@@ -39,11 +43,16 @@ const Instructor = () => {
                             <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/> 
                         </svg>
                     </label>
-                    <input type="file" name="file-input" id="file-input" className=" hidden" max={2} maxLength={2}/>
+                    <input type="file" name="file-input" id="file-input" className=" hidden"
+                    onChange={(e: any)=>{e.target.files[0].size >= 2000001 ? alert("حجم فایل باید کمتر از 2 مگابایت باشد"): console.log("فایل اپلود شد")}}
+                    />
                 </div>
 
-                <label htmlFor="" className=" font-medium mb-2 text-lg">متن</label>
-                <textarea name="" className="w-full  border border-gray-300 rounded pt-2 px-2 text-base font-normal h-[116px]" placeholder="لطفا مشکلی که باهاش مواجه شدید رو اینجا توضیح بدید. همچنین بخش‌های اصلی کدتون رو هم شرح بدید." dir="rtl"></textarea>
+                <label className=" font-medium mb-2 text-lg">متن</label>
+                <textarea className="w-full  border border-gray-300 rounded pt-2 px-2 text-base font-normal h-[116px]" placeholder="لطفا مشکلی که باهاش مواجه شدید رو اینجا توضیح بدید. همچنین بخش‌های اصلی کدتون رو هم شرح بدید." dir="rtl"
+                {...register("textarea",
+                    {required: { value: true, message: "متن خود را وارد كنيد" },}
+                )}></textarea>
 
                 <div className="flex flex-row-reverse w-full">
                     <label htmlFor="file-input2" className="w-full h-[120px] border border-gray-300 border-dashed text-gray-400 my-4 rounded flex items-center justify-center pr-2 cursor-pointer flex-col" dir="rtl">
@@ -52,7 +61,9 @@ const Instructor = () => {
                             فایل تصویری خود را اینجا بیاندازید یا <p className=" text-select font-medium"> انتخاب کنید </p>
                         </div>
                     </label>
-                    <input type="file" name="file-input2" id="file-input2" accept="image/png, image/jpg, image/jpeg" className=" hidden"/>
+                    <input type="file" name="file-input2" id="file-input2" accept="image/png, image/jpg, image/jpeg" className=" hidden"
+                    onChange={(e: any)=>{e.target.files[0].size >= 2000001 ? alert("حجم عکس باید کمتر از 2 مگابایت باشد"): console.log("عکس اپلود شد")}}
+                    />
                 </div>
 
                 <button type="submit" className="h-[40px] w-[160px] rounded bg-header mt-2">ارسال</button>
