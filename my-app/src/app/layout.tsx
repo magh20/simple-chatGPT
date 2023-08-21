@@ -16,7 +16,7 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
     }else{
       setShow2(show);
     }
-  },[show])
+  },[show]);
 
   return (
     <ContextProvider>

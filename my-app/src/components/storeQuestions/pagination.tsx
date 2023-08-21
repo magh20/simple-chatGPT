@@ -11,7 +11,7 @@ export function PaginatedItems({ itemsPerPage, setCurrentItems }: any) {
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems( question.slice(itemOffset, endOffset));
-  }, [itemOffset]);
+  }, [itemOffset, question]);
 
   const pageCount = Math.ceil(question.length / itemsPerPage);
   // Invoke when user click to request another page.
@@ -27,7 +27,7 @@ export function PaginatedItems({ itemsPerPage, setCurrentItems }: any) {
         breakLabel="..."
         nextLabel=" < بعدی "
         onPageChange={handlePageClick}
-        pageRangeDisplayed={6}
+        pageRangeDisplayed={4}
         pageCount={pageCount}
         previousLabel="قبلی >"
         renderOnZeroPageCount={null}

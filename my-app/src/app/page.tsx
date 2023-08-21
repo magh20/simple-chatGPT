@@ -6,13 +6,19 @@ import { ResDetail } from "@/components/resDetail";
 import { useEffect, useState } from "react";
 
 
+export type FormValues = {
+  input: string,
+  select: string,
+  textarea: string
+}
+
 export default function Home() {
-  const {handleSubmit, register, formState: {errors}} = useForm();
+  const {handleSubmit, register, formState: {errors}, setValue} = useForm<FormValues>({defaultValues:{input: "", select: "", textarea: ""}});
   const {question, setQuestion, setRes, res} = useCont();
   const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  const submitHandle = (data : any) =>{
+  const submitHandle = (data : FormValues) =>{
     const date = new Date();
     const Time = date.getHours()
       + ':' + date.getMinutes()
@@ -22,6 +28,9 @@ export default function Home() {
     Post(data, setRes, setQuestion, question, setLoading, setShow, id);
     setShow(!show);
     setRes((i: any)=>[...i, {id: id, quest: data.textarea, resp: "", Qtime: Time, date: date.toLocaleDateString('en-GB'), Rtime: ""}]);
+    setValue("input", "");
+    setValue("select", "");
+    setValue("textarea", "");
   }
 
   useEffect(() => {

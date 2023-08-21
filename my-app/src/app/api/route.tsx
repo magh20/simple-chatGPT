@@ -1,6 +1,7 @@
 import axios from "axios";
+import { FormValues } from "../page";
 
-export async function Post( data: {textarea: string, input: string, select: string}, setRes: any, setQuestion: any, question: any, setLoading: any, setShow: any, id: number){
+export async function Post( data: FormValues, setRes: any, setQuestion: any, question: any, setLoading: any, setShow: any, id: number){
     await axios.post('https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill',{
         inputs: {"text": JSON.stringify(data.textarea)},
     },{headers: { Authorization: "Bearer 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" },}

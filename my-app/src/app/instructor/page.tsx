@@ -4,14 +4,17 @@ import { useCont } from "../../contextApi/context";
 import { useEffect, useState } from "react";
 import Image from 'next/image';
 import img1 from "../../../public/assets/images/picture_photo_image_icon_131252.png"
-import Link from "next/link";
+import { FormValues } from "../page";
 
 const Instructor = () => {
-    const {handleSubmit, register, formState: {errors}} = useForm();
+    const {handleSubmit, register, formState: {errors}, setValue} = useForm<FormValues>();
     const {question, setQuestion} = useCont();
 
-    const submitHandle = (data : any) =>{
+    const submitHandle = (data : FormValues) =>{
         setQuestion([...question, {id: Date.now(), title: data.input, problem: data.select, quest: data.textarea}]);
+        setValue("input", "");
+        setValue("select", "");
+        setValue("textarea", "");
     }
 
     useEffect(() => {
