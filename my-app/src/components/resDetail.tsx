@@ -51,7 +51,7 @@ export const ResDetail = ({quest, resp, date, Qtime, Rtime}: any) => {
                         {resp}
                     </article>
                      : 
-                    <p>در حال نوشتن ...</p>
+                    <p className="pr-4 mt-2"> ...در حال نوشتن </p>
                 }
             </section>
         </div>

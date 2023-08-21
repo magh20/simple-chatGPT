@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function Post( data: {textarea: string, input: string, select: string}, setRes: any, setQuestion: any, question: any, setLoading: any, setShow: any, id: number){
-    await axios.post('https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium',{
+    await axios.post('https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill',{
         inputs: {"text": JSON.stringify(data.textarea)},
     },{headers: { Authorization: "Bearer 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" },}
     ).then(function(response){
@@ -16,7 +16,7 @@ export async function Post( data: {textarea: string, input: string, select: stri
             )),
         );
         setQuestion([...question, {id: Date.now(), title: data.input, problem: data.select}]);
-        console.log(response)
+        console.log(response);
     }).catch(error => {
         console.log(error);
     }).finally(()=>{

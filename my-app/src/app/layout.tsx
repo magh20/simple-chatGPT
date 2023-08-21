@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import './globals.css'
 import { useEffect, useState } from 'react'
-import { ContextProvider } from '../contextApi/context';
+import { ContextProvider, useCont } from '../contextApi/context';
 import StoreQuestions from '../components/storeQuestions/storeQuestions';
 
 
@@ -16,7 +16,6 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
     }else{
       setShow2(show);
     }
-      
   },[show])
 
   return (
