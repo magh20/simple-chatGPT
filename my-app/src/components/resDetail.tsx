@@ -47,7 +47,7 @@ export const ResDetail = ({quest, resp, date, Qtime, Rtime}: any) => {
                 </article>
                 {
                     resp ? 
-                    <article className="pr-4 mt-4">
+                    <article className="pr-4 mt-4" dir="rtl">
                         {resp}
                     </article>
                      : 
